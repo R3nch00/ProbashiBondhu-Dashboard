@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --font-bangla: "Hind Siliguri", "Inter", system-ui, sans-serif;
+  --font-num: "Inter", "Hind Siliguri", system-ui, sans-serif;
+
+  --color-brand-50: #fdf2f8;
+  --color-brand-100: #fce7f3;
+  --color-brand-200: #fbcfe8;
+  --color-brand-300: #f9a8d4;
+  --color-brand-400: #ec4899;
+  --color-brand-500: #e6007e;
+  --color-brand-600: #c3006a;
+  --color-brand-700: #9d0057;
+  --color-brand-800: #7a0044;
+  --color-brand-900: #500f33;
+
+  --color-ink-900: #1b1f2a;
+  --color-ink-700: #3a4152;
+  --color-ink-500: #6b7280;
+  --color-ink-300: #b9bec9;
+  --color-ink-100: #eef0f4;
+  --color-ink-50: #f7f8fa;
+}
+
+html {
+  font-family: var(--font-bangla);
+}
+
+body {
+  background: var(--color-ink-50);
+  color: var(--color-ink-900);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.font-num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-300);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e5ea;
+  background: white;
+  padding: 0.65rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-ink-900);
+  outline: none;
+  transition:
+    box-shadow 0.15s,
+    border-color 0.15s;
+}
+.input:focus {
+  border-color: var(--color-brand-400);
+  box-shadow: 0 0 0 4px var(--color-brand-100);
+}
