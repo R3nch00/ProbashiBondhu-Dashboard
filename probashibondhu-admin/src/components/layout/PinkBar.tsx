@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 export function PinkBar() {
   const [adminOpen, setAdminOpen] = useState(false);
+  const [reportsOpen, setReportsOpen] = useState(false);
 
   return (
     <div
@@ -14,9 +15,20 @@ export function PinkBar() {
       }}
     >
       {/* Reports */}
-      <div className="flex cursor-pointer items-center gap-2 hover:opacity-90">
-        <FileBarChart size={20} strokeWidth={1.8} />
-        <span className="text-base font-medium">Reports</span>
+      <div className="relative">
+        <button
+          onClick={() => setReportsOpen(!reportsOpen)}
+          className="flex items-center gap-2 hover:opacity-90"
+        >
+          <FileBarChart size={20} strokeWidth={1.8} />
+          <span className="text-base font-medium">Reports</span>
+        </button>
+
+        {reportsOpen && (
+          <div className="absolute left-0 mt-3 w-56 rounded-xl bg-white text-gray-800 shadow-lg">
+            {/* submenu items here */}
+          </div>
+        )}
       </div>
 
       {/* Admin Panel */}

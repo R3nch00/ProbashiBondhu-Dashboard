@@ -12,8 +12,11 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="reports" element={<Reports />} />
           <Route path="reports/enrolled-policies" element={<Reports />} />
-          <Route path="reports/claims" element={<Reports />} />
-          <Route path="reports/agents-performance" element={<Reports />} />
+          <Route path="reports/draft-policies" element={<Reports />} />
+          <Route path="reports/submitted-claims" element={<Reports />} />
+          <Route path="reports/settled-claims" element={<Reports />} />
+          <Route path="reports/pending-claims" element={<Reports />} />
+          <Route path="reports/regretted-claims" element={<Reports />} />
           <Route path="agents" element={<Agents />} />
         </Route>
       </Routes>
