@@ -7,17 +7,20 @@ export function PinkBar() {
   const [reportsOpen, setReportsOpen] = useState(false);
 
   return (
-    <div
-      className="ml-auto flex w-1/4 items-center justify-end gap-10 bg-[#e10078] px-8 py-4 text-white"
-      style={{
-        // Left side slightly angled, right side straight
-        clipPath: "polygon(0 0, 100% 0, 100% 100%, 10% 100%)",
-      }}
-    >
+    <div className="relative ml-auto flex w-1/4 items-center justify-end gap-10 bg-[#e10078] px-8 py-4 text-white">
+      <div
+        className="absolute top-0 left-[-40px] h-full w-10 bg-[#e10078]"
+        style={{
+          clipPath: "polygon(100% 0, 100% 100%, 0 0)",
+        }}
+      />
       {/* Reports */}
-      <div className="relative">
+      <div className="relative z-50">
         <button
-          onClick={() => setReportsOpen(!reportsOpen)}
+          onClick={() => {
+            setReportsOpen(!reportsOpen);
+            setAdminOpen(false);
+          }}
           className="flex items-center gap-2 hover:opacity-90"
         >
           <FileBarChart size={20} strokeWidth={1.8} />
@@ -25,16 +28,63 @@ export function PinkBar() {
         </button>
 
         {reportsOpen && (
-          <div className="absolute left-0 mt-3 w-56 rounded-xl bg-white text-gray-800 shadow-lg">
+          <div
+            className="absolute top-full left-0 z-50 mt-2 w-56 rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg"
+            onMouseLeave={() => setReportsOpen(false)}
+          >
             {/* submenu items here */}
+
+            <a
+              href="/reports/enrolled-policies"
+              className="block rounded-t-xl px-4 py-3 hover:bg-pink-50"
+            >
+              Enrolled Policies
+            </a>
+
+            <a
+              href="/reports/draft-policies"
+              className="block px-4 py-3 hover:bg-pink-50"
+            >
+              Draft Policies
+            </a>
+
+            <a
+              href="/reports/submitted-claims"
+              className="block px-4 py-3 hover:bg-pink-50"
+            >
+              Submitted Claims
+            </a>
+
+            <a
+              href="/reports/settled-claims"
+              className="block px-4 py-3 hover:bg-pink-50"
+            >
+              Settled Claims
+            </a>
+
+            <a
+              href="/reports/pending-claims"
+              className="block px-4 py-3 hover:bg-pink-50"
+            >
+              Pending Claims
+            </a>
+
+            <a
+              href="/reports/regretted-claims"
+              className="block rounded-b-xl px-4 py-3 hover:bg-pink-50"
+            >
+              Regretted Claims
+            </a>
           </div>
         )}
       </div>
-
       {/* Admin Panel */}
-      <div className="relative">
+      <div className="relative z-50">
         <button
-          onClick={() => setAdminOpen(!adminOpen)}
+          onClick={() => {
+            setAdminOpen(!adminOpen);
+            setReportsOpen(false);
+          }}
           className="flex items-center gap-2 text-base font-medium hover:opacity-90"
         >
           <UserCircle size={20} strokeWidth={1.8} />
@@ -42,11 +92,15 @@ export function PinkBar() {
         </button>
 
         {adminOpen && (
-          <div className="absolute right-0 mt-3 w-40 rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg">
-            <button className="flex w-full items-center gap-2 bg-[#e10078] px-3 py-2 font-semibold text-white hover:opacity-90">
+          <div
+            className="absolute top-full right-0 z-50 mt-2 w-40 rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg"
+            onMouseLeave={() => setAdminOpen(false)}
+          >
+            <button className="flex w-full items-center gap-2 rounded-t-xl px-3 py-2 font-semibold text-[#e10078] hover:bg-pink-50">
               <span className="text-lg">+</span> Create Agent
             </button>
-            <button className="flex w-full items-center gap-2 px-3 py-2 font-semibold text-[#e10078] hover:bg-pink-50">
+
+            <button className="flex w-full items-center gap-2 rounded-b-xl px-3 py-2 font-semibold text-[#e10078] hover:bg-pink-50">
               <span className="text-lg">≡</span> Agent List
             </button>
           </div>
