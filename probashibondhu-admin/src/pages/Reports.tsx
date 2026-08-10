@@ -21,82 +21,75 @@ export function Reports() {
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
 
+  const handleExcelDownload = () => {
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      ["Policy ID,Holder Name,Phone,Open Date,Duration"]
+        .concat(
+          filtered.map(
+            (r) => `${r.policyId},${r.holderName},${r.phone},${r.openDate},${r.duration}`
+          )
+        )
+        .join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.href = encodedUri;
+    link.download = "enrolled_policies.csv";
+    link.click();
+  };
+
   return (
     <div className="space-y-5 p-6">
-      {/* Search Section */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="max-w-2xl flex-1">
-          <div className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center rounded-full bg-brand-500 px-6 text-white font-semibold text-sm">
-              Search for
-            </span>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setPage(1);
-              }}
-              placeholder="Type in Policy ID, Policy Holder's Name, NID number etc"
-              className="w-full rounded-full border-2 border-brand-300 bg-white py-3 pl-40 pr-5 text-sm text-ink-700 placeholder:text-ink-400 focus:border-brand-400 focus:outline-none"
-            />
-          </div>
-        </div>
-        <button className="flex items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600">
-          <Download size={16} />
-          Download Excel
-        </button>
-      </div>
-
       {/* Table Section */}
-      <div className="overflow-hidden rounded-xl border border-ink-200 bg-white shadow-sm">
+      <div className="overflow-hidden border border-gray-300 bg-white shadow-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
+          <table className="w-full border-collapse border border-gray-300 text-left text-sm">
             <thead>
-              <tr className="bg-ink-600 text-white">
-                <th className="px-5 py-3.5 font-semibold">Policy ID</th>
-                <th className="px-5 py-3.5 font-semibold">
+              <tr className="bg-gray-600 text-white">
+                <th className="border border-gray-300 px-5 py-3.5 font-semibold">
+                  Policy ID
+                </th>
+                <th className="border border-gray-300 px-5 py-3.5 font-semibold">
                   Policy Holder's Name
                 </th>
-                <th className="px-5 py-3.5 font-semibold">Phone Number</th>
-                <th className="px-5 py-3.5 font-semibold">Policy Open Date</th>
-                <th className="px-5 py-3.5 font-semibold">Policy Duration</th>
-                <th className="px-5 py-3.5 font-semibold text-right">Action</th>
+                <th className="border border-gray-300 px-5 py-3.5 font-semibold">
+                  Phone Number
+                </th>
+                <th className="border border-gray-300 px-5 py-3.5 font-semibold">
+                  Policy Open Date
+                </th>
+                <th className="border border-gray-300 px-5 py-3.5 font-semibold">
+                  Policy Duration
+                </th>
+                <th className="border border-gray-300 px-5 py-3.5 text-right font-semibold">
+                  Action
+                </th>
               </tr>
             </thead>
+
             <tbody>
               {paged.map((row, i) => (
                 <tr
                   key={row.id}
-                  className={`border-t border-ink-100 ${
-                    i % 2 === 1 ? "bg-ink-50" : ""
-                  }`}
+                  className={`${i % 2 === 0 ? "bg-white" : "bg-gray-100"}`}
                 >
-                  <td className="px-5 py-3.5 font-num font-medium text-ink-900">
-                    {row.policyId}
-                  </td>
-                  <td className="px-5 py-3.5 text-ink-700">
-                    {row.holderName}
-                  </td>
-                  <td className="px-5 py-3.5 font-num text-ink-700">
-                    {row.phone}
-                  </td>
-                  <td className="px-5 py-3.5 font-num text-ink-700">
-                    {row.openDate}
-                  </td>
-                  <td className="px-5 py-3.5 text-ink-700">
-                    {row.duration}
-                  </td>
-                  <td className="px-5 py-3.5 text-right">
-                    <button className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700">
+                  <td className="border border-gray-200 px-5 py-3.5">{row.policyId}</td>
+                  <td className="border border-gray-200 px-5 py-3.5">{row.holderName}</td>
+                  <td className="border border-gray-200 px-5 py-3.5">{row.phone}</td>
+                  <td className="border border-gray-200 px-5 py-3.5">{row.openDate}</td>
+                  <td className="border border-gray-200 px-5 py-3.5">{row.duration}</td>
+                  <td className="border border-gray-200 px-5 py-3.5 text-right">
+                    <button className="text-brand-600 hover:text-brand-700 inline-flex items-center gap-1.5 text-sm font-semibold">
                       See Details <Eye size={14} />
                     </button>
                   </td>
                 </tr>
               ))}
+
               {paged.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-5 py-10 text-center text-ink-400">
+                  <td colSpan={6} className="text-ink-400 px-5 py-10 text-center">
                     No data found
                   </td>
                 </tr>
@@ -105,10 +98,11 @@ export function Reports() {
           </table>
         </div>
 
-        {/* Pagination */}
-        <div className="border-t border-ink-100 px-5 py-4">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div className="flex items-center gap-2 text-sm text-ink-600">
+        {/* Pagination + Excel Button */}
+        <div className="border-t border-gray-300 px-5 py-6">
+          <div className="flex items-center justify-between gap-6">
+            {/* Show Entries (left aligned) */}
+            <div className="text-ink-600 flex w-full items-center gap-2 text-sm">
               <span>Show</span>
               <select
                 value={pageSize}
@@ -116,7 +110,7 @@ export function Reports() {
                   setPageSize(Number(e.target.value));
                   setPage(1);
                 }}
-                className="rounded-lg border border-ink-200 bg-white px-2 py-1.5 font-num text-sm text-ink-700"
+                className="font-num text-ink-700 rounded-md border border-[#e10078] bg-white px-2.5 py-1.5 text-sm"
               >
                 {[10, 25, 50].map((s) => (
                   <option key={s} value={s}>
@@ -126,34 +120,50 @@ export function Reports() {
               </select>
               <span>Entries per page</span>
             </div>
-
-            <div className="flex items-center gap-2">
+            {/* Center Pagination */}
+            <div className="flex items-center justify-center gap-3">
+              {/* Previous Button */}
               <button
                 onClick={() => setPage(Math.max(1, page - 1))}
                 disabled={page === 1}
-                className="rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-600 disabled:opacity-50"
+                className="rounded-md bg-[#e10078] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
               >
                 Previous
               </button>
+
+              {/* Page Numbers */}
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPage(p)}
-                  className={`h-8 w-8 rounded-full font-num text-sm font-semibold transition-colors ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-md border text-sm font-semibold ${
                     p === page
-                      ? "bg-brand-500 text-white"
-                      : "border border-ink-200 text-ink-600 hover:bg-ink-50"
-                  }`}
+                      ? "border-[#e10078] bg-[#e10078] text-white"
+                      : "border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
+                  } `}
                 >
                   {p}
                 </button>
               ))}
+
+              {/* Next Button */}
               <button
                 onClick={() => setPage(Math.min(totalPages, page + 1))}
                 disabled={page === totalPages}
-                className="rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-600 disabled:opacity-50"
+                className="rounded-md bg-[#e10078] px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
               >
                 Next
+              </button>
+            </div>
+
+            {/* Download Excel (bottom-right) */}
+            <div className="flex w-full justify-end">
+              <button
+                onClick={handleExcelDownload}
+                className="bg-brand-500 hover:bg-brand-600 flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white"
+              >
+                <Download size={16} />
+                Download Excel
               </button>
             </div>
           </div>

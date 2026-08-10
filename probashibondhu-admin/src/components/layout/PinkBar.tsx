@@ -21,63 +21,39 @@ export function PinkBar() {
             setReportsOpen(!reportsOpen);
             setAdminOpen(false);
           }}
-          className="flex items-center gap-2 hover:opacity-90"
+          className="flex items-center gap-2 text-base font-medium transition-colors hover:text-[#ffd6eb]"
         >
           <FileBarChart size={20} strokeWidth={1.8} />
-          <span className="text-base font-medium">Reports</span>
+          <span>Reports</span>
         </button>
 
         {reportsOpen && (
           <div
-            className="absolute top-full left-0 z-50 mt-2 w-56 rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg"
+            className="absolute top-full left-0 z-50 mt-2 w-56 animate-[fadeIn_0.15s_ease-out] rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg"
             onMouseLeave={() => setReportsOpen(false)}
           >
-            {/* submenu items here */}
-
-            <a
-              href="/reports/enrolled-policies"
-              className="block rounded-t-xl px-4 py-3 hover:bg-pink-50"
-            >
-              Enrolled Policies
-            </a>
-
-            <a
-              href="/reports/draft-policies"
-              className="block px-4 py-3 hover:bg-pink-50"
-            >
-              Draft Policies
-            </a>
-
-            <a
-              href="/reports/submitted-claims"
-              className="block px-4 py-3 hover:bg-pink-50"
-            >
-              Submitted Claims
-            </a>
-
-            <a
-              href="/reports/settled-claims"
-              className="block px-4 py-3 hover:bg-pink-50"
-            >
-              Settled Claims
-            </a>
-
-            <a
-              href="/reports/pending-claims"
-              className="block px-4 py-3 hover:bg-pink-50"
-            >
-              Pending Claims
-            </a>
-
-            <a
-              href="/reports/regretted-claims"
-              className="block rounded-b-xl px-4 py-3 hover:bg-pink-50"
-            >
-              Regretted Claims
-            </a>
+            {[
+              { label: "Enrolled Policies", to: "/reports/enrolled-policies" },
+              { label: "Draft Policies", to: "/reports/draft-policies" },
+              { label: "Submitted Claims", to: "/reports/submitted-claims" },
+              { label: "Settled Claims", to: "/reports/settled-claims" },
+              { label: "Pending Claims", to: "/reports/pending-claims" },
+              { label: "Regretted Claims", to: "/reports/regretted-claims" },
+            ].map((item, index, arr) => (
+              <a
+                key={item.to}
+                href={item.to}
+                className={`block px-4 py-3 transition-colors hover:bg-pink-50 hover:text-[#e10078] ${
+                  index === 0 ? "rounded-t-xl" : ""
+                } ${index === arr.length - 1 ? "rounded-b-xl" : ""}`}
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
         )}
       </div>
+
       {/* Admin Panel */}
       <div className="relative z-50">
         <button
@@ -85,7 +61,7 @@ export function PinkBar() {
             setAdminOpen(!adminOpen);
             setReportsOpen(false);
           }}
-          className="flex items-center gap-2 text-base font-medium hover:opacity-90"
+          className="flex items-center gap-2 text-base font-medium transition-colors hover:text-[#ffd6eb]"
         >
           <UserCircle size={20} strokeWidth={1.8} />
           <span>Admin Panel</span>
@@ -93,14 +69,14 @@ export function PinkBar() {
 
         {adminOpen && (
           <div
-            className="absolute top-full right-0 z-50 mt-2 w-40 rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg"
+            className="absolute top-full right-0 z-50 mt-2 w-40 animate-[fadeIn_0.15s_ease-out] rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg"
             onMouseLeave={() => setAdminOpen(false)}
           >
-            <button className="flex w-full items-center gap-2 rounded-t-xl px-3 py-2 font-semibold text-[#e10078] hover:bg-pink-50">
+            <button className="flex w-full items-center gap-2 rounded-t-xl px-4 py-3 font-semibold text-[#e10078] transition-colors hover:bg-pink-50">
               <span className="text-lg">+</span> Create Agent
             </button>
 
-            <button className="flex w-full items-center gap-2 rounded-b-xl px-3 py-2 font-semibold text-[#e10078] hover:bg-pink-50">
+            <button className="flex w-full items-center gap-2 rounded-b-xl px-4 py-3 font-semibold text-[#e10078] transition-colors hover:bg-pink-50">
               <span className="text-lg">≡</span> Agent List
             </button>
           </div>

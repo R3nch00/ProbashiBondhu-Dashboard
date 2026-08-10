@@ -14,7 +14,6 @@ export function Header() {
       <LogoTitle />
 
       {/* THIRD ROW: Date Filter */}
-      <DateFilter />
     </header>
   );
 }
