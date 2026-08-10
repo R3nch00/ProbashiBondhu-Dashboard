@@ -9,7 +9,7 @@ export function PinkBar() {
   return (
     <div className="relative ml-auto flex w-1/4 items-center justify-end gap-10 bg-[#e10078] px-8 py-4 text-white">
       <div
-        className="absolute top-0 left-[-40px] h-full w-10 bg-[#e10078]"
+        className="absolute top-0 left-[-39px] h-full w-10 bg-[#e10078]"
         style={{
           clipPath: "polygon(100% 0, 100% 100%, 0 0)",
         }}
