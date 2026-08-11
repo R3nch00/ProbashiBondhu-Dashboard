@@ -13,28 +13,39 @@ function MenuText({ menu }: { menu: string }) {
 
 // Submenu component (gray-500)
 function SubmenuText({ submenu }: { submenu: string }) {
-  return <span className="text-gray-500"> &gt; {submenu}</span>;
+  return <span className="text-gray-500"> {submenu}</span>;
 }
 export function LogoTitle() {
   const location = useLocation();
 
   const getMenuInfo = () => {
     if (location.pathname === "/") {
-      // Landing page
       return { menu: "ProbashiBondhu", submenu: "Dashboard" };
     }
+
     if (location.pathname.startsWith("/reports")) {
       if (location.pathname.includes("claims"))
         return { menu: "Reports", submenu: "Claims" };
+
       if (location.pathname.includes("enrolled-policies"))
         return { menu: "Reports", submenu: "Enrolled Policies" };
+
       if (location.pathname.includes("agents-performance"))
         return { menu: "Reports", submenu: "Agents Performance" };
+
       return { menu: "Reports", submenu: "" };
     }
-    if (location.pathname.startsWith("/agents")) {
-      return { menu: "Agent", submenu: "Agent List" };
+
+    if (location.pathname.startsWith("/admin")) {
+      if (location.pathname.includes("agent-list"))
+        return { menu: "Admin Panel", submenu: "Agents List" };
+
+      if (location.pathname.includes("create-agent"))
+        return { menu: "Admin Panel", submenu: "Create Agent" };
+
+      return { menu: "Admin Panel", submenu: "" };
     }
+
     return { menu: "Dashboard", submenu: "" };
   };
 
@@ -60,14 +71,13 @@ export function LogoTitle() {
           </p>
 
           {/* Second line: landing page shows Dashboard in gray, other pages show submenu in gray */}
-          <p className="text-5xl font-semibold">
+          <p className="text-5xl font-semibold text-gray-500">
             {location.pathname === "/" ? (
-              <span className="text-gray-500">Dashboard</span>
+              "Dashboard"
+            ) : submenu ? (
+              <SubmenuText submenu={submenu} />
             ) : (
-              <>
-                <MenuText menu={menu} />
-                {submenu && <SubmenuText submenu={submenu} />}
-              </>
+              <MenuText menu={menu} />
             )}
           </p>
         </div>

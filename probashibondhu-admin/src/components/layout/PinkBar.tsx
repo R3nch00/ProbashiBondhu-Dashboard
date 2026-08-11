@@ -1,6 +1,7 @@
 // src/components/layout/PinkBar.tsx
 import { FileBarChart, UserCircle } from "lucide-react";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function PinkBar() {
   const [adminOpen, setAdminOpen] = useState(false);
@@ -76,9 +77,14 @@ export function PinkBar() {
               <span className="text-lg">+</span> Create Agent
             </button>
 
-            <button className="flex w-full items-center gap-2 rounded-b-xl px-4 py-3 font-semibold text-[#e10078] transition-colors hover:bg-pink-50">
-              <span className="text-lg">≡</span> Agent List
-            </button>
+            <Link
+              to="/admin/agent-list"
+
+              className="flex w-full items-center gap-2 rounded-b-xl px-3 py-2 font-semibold text-[#e10078] hover:bg-pink-50"
+            >
+              <span className="text-lg">≡</span>
+              Agent List
+            </Link>
           </div>
         )}
       </div>

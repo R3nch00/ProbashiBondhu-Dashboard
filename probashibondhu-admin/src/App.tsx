@@ -3,6 +3,7 @@ import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { Dashboard } from "./pages/Dashboard";
 import { Reports } from "./pages/Reports";
 import { Agents } from "./pages/Agents";
+import { AgentList } from "./pages/AgentList";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="reports/pending-claims" element={<Reports />} />
           <Route path="reports/regretted-claims" element={<Reports />} />
           <Route path="agents" element={<Agents />} />
+          <Route path="/admin/agent-list" element={<AgentList />} />
         </Route>
       </Routes>
     </BrowserRouter>
