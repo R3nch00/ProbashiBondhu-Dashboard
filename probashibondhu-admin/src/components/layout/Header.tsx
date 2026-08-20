@@ -2,7 +2,6 @@
 
 import { PinkBar } from "./PinkBar";
 import { LogoTitle } from "./LogoTitle";
-import { DateFilter } from "./DateFilter";
 
 export function Header() {
   return (
@@ -12,8 +11,6 @@ export function Header() {
 
       {/* SECOND ROW: Logo + Dynamic Menu/Submenu */}
       <LogoTitle />
-
-      {/* THIRD ROW: Date Filter */}
     </header>
   );
 }
