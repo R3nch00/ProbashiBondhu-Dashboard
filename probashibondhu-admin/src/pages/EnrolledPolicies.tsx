@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Download, Eye, Search } from "lucide-react";
 import { policyRows } from "../data/mock";
 
-export function Reports() {
+export function EnrolledPolicies() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);

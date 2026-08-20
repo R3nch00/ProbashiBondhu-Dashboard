@@ -1,9 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DashboardLayout } from "./components/layout/DashboardLayout";
 import { Dashboard } from "./pages/Dashboard";
-import { Reports } from "./pages/Reports";
-import { Agents } from "./pages/Agents";
+
+import { EnrolledPolicies } from "./pages/EnrolledPolicies";
+import { DraftPolicies } from "./pages/DraftPolicies";
+import { SubmittedClaims } from "./pages/SubmittedClaims";
+import { SettledClaims } from "./pages/SettledClaims";
+import { PendingClaims } from "./pages/PendingClaims";
+import { RegrettedClaims } from "./pages/RegrettedClaims";
+
 import { AgentList } from "./pages/AgentList";
+import { CreateAgent } from "./pages/CreateAgent";
 
 export default function App() {
   return (
@@ -11,15 +18,15 @@ export default function App() {
       <Routes>
         <Route element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="reports" element={<Reports />} />
-          <Route path="reports/enrolled-policies" element={<Reports />} />
-          <Route path="reports/draft-policies" element={<Reports />} />
-          <Route path="reports/submitted-claims" element={<Reports />} />
-          <Route path="reports/settled-claims" element={<Reports />} />
-          <Route path="reports/pending-claims" element={<Reports />} />
-          <Route path="reports/regretted-claims" element={<Reports />} />
-          <Route path="agents" element={<Agents />} />
-          <Route path="/admin/agent-list" element={<AgentList />} />
+          <Route path="reports/enrolled-policies" element={<EnrolledPolicies />} />
+          <Route path="reports/draft-policies" element={<DraftPolicies />} />
+          <Route path="reports/submitted-claims" element={<SubmittedClaims />} />
+          <Route path="reports/settled-claims" element={<SettledClaims />} />
+          <Route path="reports/pending-claims" element={<PendingClaims />} />
+          <Route path="reports/regretted-claims" element={<RegrettedClaims />} />
+
+          <Route path="admin/agent-list" element={<AgentList />} />
+          <Route path="admin/create-agent" element={<CreateAgent />} />
         </Route>
       </Routes>
     </BrowserRouter>

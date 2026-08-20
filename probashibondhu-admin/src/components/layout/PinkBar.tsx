@@ -73,9 +73,12 @@ export function PinkBar() {
             className="absolute top-full right-0 z-50 mt-2 w-40 animate-[fadeIn_0.15s_ease-out] rounded-xl border border-gray-200 bg-white text-gray-800 shadow-lg"
             onMouseLeave={() => setAdminOpen(false)}
           >
-            <button className="flex w-full items-center gap-2 rounded-t-xl px-4 py-3 font-semibold text-[#e10078] transition-colors hover:bg-pink-50">
+            <Link
+              to="/admin/create-agent"
+              className="flex w-full items-center gap-2 rounded-t-xl px-4 py-3 font-semibold text-[#e10078] transition-colors hover:bg-pink-50"
+            >
               <span className="text-lg">+</span> Create Agent
-            </button>
+            </Link>
 
             <Link
               to="/admin/agent-list"

@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Separate cylinder function
 function CylinderShape() {
@@ -19,46 +19,53 @@ export function LogoTitle() {
   const location = useLocation();
 
   const getMenuInfo = () => {
+    // Define all submenu mappings here
+    const routeMap: Record<string, { menu: string; submenu: string }> = {
+      "/reports/enrolled-policies": { menu: "Reports", submenu: "Enrolled Policies" },
+      "/reports/draft-policies": { menu: "Reports", submenu: "Draft Policies" },
+      "/reports/submitted-claims": { menu: "Reports", submenu: "Submitted Claims" },
+      "/reports/settled-claims": { menu: "Reports", submenu: "Settled Claims" },
+      "/reports/pending-claims": { menu: "Reports", submenu: "Pending Claims" },
+      "/reports/regretted-claims": { menu: "Reports", submenu: "Regretted Claims" },
+      "/reports/agents-performance": { menu: "Reports", submenu: "Agents Performance" },
+
+      "/admin/agent-list": { menu: "Admin Panel", submenu: "Agent List" },
+      "/admin/create-agent": { menu: "Admin Panel", submenu: "Create Agent" },
+    };
+
+    // Dashboard root
     if (location.pathname === "/") {
       return { menu: "ProbashiBondhu", submenu: "Dashboard" };
     }
 
+    // If exact match found in map
+    if (routeMap[location.pathname]) {
+      return routeMap[location.pathname];
+    }
+
+    // Fallbacks
     if (location.pathname.startsWith("/reports")) {
-      if (location.pathname.includes("claims"))
-        return { menu: "Reports", submenu: "Claims" };
-
-      if (location.pathname.includes("enrolled-policies"))
-        return { menu: "Reports", submenu: "Enrolled Policies" };
-
-      if (location.pathname.includes("agents-performance"))
-        return { menu: "Reports", submenu: "Agents Performance" };
-
-      return { menu: "Reports", submenu: "" };
+      return { menu: "Reports", submenu: null };
     }
-
     if (location.pathname.startsWith("/admin")) {
-      if (location.pathname.includes("agent-list"))
-        return { menu: "Admin Panel", submenu: "Agents List" };
-
-      if (location.pathname.includes("create-agent"))
-        return { menu: "Admin Panel", submenu: "Create Agent" };
-
-      return { menu: "Admin Panel", submenu: "" };
+      return { menu: "Admin Panel", submenu: null };
     }
 
-    return { menu: "Dashboard", submenu: "" };
+    return { menu: "Dashboard", submenu: null };
   };
 
   const { menu, submenu } = getMenuInfo();
 
   return (
     <div className="-mt-10 flex items-center gap-4 px-8 py-1">
-      {/* Logo */}
-      <img
-        src="/bima-logo.png"
-        alt="ProbashiBondhu"
-        className="h-24 w-24 object-contain"
-      />
+      {/* Logo - clicking redirects to Dashboard */}
+      <Link to="/">
+        <img
+          src="/bima-logo.png"
+          alt="ProbashiBondhu"
+          className="h-24 w-24 cursor-pointer object-contain"
+        />
+      </Link>
       {/* Cylinder above title */}
       <div className="flex min-w-0 flex-col">
         <CylinderShape />
@@ -77,7 +84,7 @@ export function LogoTitle() {
             ) : submenu ? (
               <SubmenuText submenu={submenu} />
             ) : (
-              <MenuText menu={menu} />
+              ""
             )}
           </p>
         </div>
